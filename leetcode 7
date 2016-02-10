@@ -1,0 +1,14 @@
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: str
+        """
+        neg, x, ans = x < 0, abs(x), 0
+        upper = 0x7fffffff
+        while x > 0:
+            ans = ans * 10 + x % 10
+            x = x / 10
+            if ans > upper:
+                return 0
+        return -ans if neg else ans
