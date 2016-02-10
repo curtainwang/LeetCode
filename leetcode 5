@@ -1,0 +1,50 @@
+class Solution{
+public:
+	string longestPalindrome(string s){
+		string str;
+		str += '@';
+		for(int i=0;i<s.size();i++){
+
+			str += s[i];
+			str += '#';
+		}
+		int *p = new int[str.size() + 1];
+		memset(p, 0, str.size() + 1);
+		int mx = 0, id = 0;
+
+		for(int i=1;i<=str.size();i++){
+
+			if(mx > i){
+				p[i] = min(p[2*id - i], mx - i);
+			}
+			else{
+				p[i] = 1;
+			}
+
+			while(str[i-p[i]] == str[i+p[i]]){
+				p[i]++;
+			}
+			if(i + p[i] > mx){
+				id = i;
+				mx = i + p[i];
+			}
+		}
+		int Max = 0, Max_pos;
+		for(int i=0;i<str.size();i++){
+			if(p[i] > Max){
+				Max = p[i];
+				Max_pos = i;
+			}
+		}
+		Max--;
+		string ans;
+		int l = Max_pos - Max, r = Max_pos + Max;
+		for(int i=l;i<=r;i++){
+			if(str[i] != '#'){
+				ans += str[i];
+			}
+		}
+		delete p;
+		return ans;		
+	}
+};
