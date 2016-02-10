@@ -1,0 +1,28 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows == 1:
+            return s
+        rows = [[] for i in xrange(numRows)]
+        idx = 0
+        forward = True
+        for char in s:
+            rows[idx].append(char)
+            if forward:
+                if idx == numRows -1:
+                    forward = False
+            else:
+                if idx == 0:
+                    forward = True
+            if forward:
+                idx += 1
+            else:
+                idx -= 1
+        output = ''
+        for row in rows:
+            output += ''.join(row)
+        return output
