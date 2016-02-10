@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+
+
+    int l = 0, r = 0;
+    int ans = 0;
+    int len = s.length();
+    int last[130]; for(int i=0;i<130;i++) last[i] = -1;
+    while(l < len){
+        while(r < len){
+            if(last[int(s[r])] < l){
+                last[int(s[r])] = r;
+                ans = max(ans, r - l + 1);
+            }
+            else break;
+            r++;
+        }
+        l++;
+    }
+    return ans;
+    }
+};
