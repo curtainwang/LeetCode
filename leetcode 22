@@ -1,0 +1,13 @@
+class Solution(object):
+    def dfs(self, left, right, n, res, s):
+        if left == n and right == n:
+            res.append(s)
+        if left < n:
+            self.dfs(left + 1, right, n, res, s + '(')
+        if right < left:
+            self.dfs(left, right + 1, n, res, s + ')')
+    
+    def generateParenthesis(self, n):
+        res = []
+        self.dfs(0, 0, n, res, '')
+        return res
