@@ -1,0 +1,31 @@
+class Solution{
+public:
+	vector<int> findSubstring(string s, vector<string>& words){
+
+		vector<int> ans;
+		int word_size = words[0].size();
+		int tot_size = word_size * words.size();
+		for(int first = 0; first < word_size; first++){
+			map<string, int> st;
+			for(int i=0;i<words.size();i++)
+				st[words[i]]++;
+			int begin = first, end = first, tot = words.size();
+			while(end + word_size <= s.size()){
+				st[s.substr(end, word_size)]--;
+				if(st[s.substr(end, word_size)] >= 0){
+					tot--;
+				}
+				end += word_size;
+				if(end - begin > tot_size){
+					if(st[s.substr(begin, word_size)]++ >= 0){
+						tot++;
+					}
+					begin += word_size;
+				}
+				if(tot == 0)
+					ans.push_back(begin);
+			}
+		}
+		return ans;
+	}
+};
