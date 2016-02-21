@@ -1,0 +1,29 @@
+class Solution{
+public:
+	vector<vector<int> >ans;
+	vector<int>res;
+	void dfs(int dep, vector<int>& candidates, int target, int sum){
+		if(sum == target) {
+			ans.push_back(res);
+		}
+		if(dep >= candidates.size()){
+			return ;
+		}
+		if(candidates[dep] > target - sum){
+			return ;
+		}
+		for(int i=dep;i<candidates.size();i++){
+			if(i > dep && candidates[i] == candidates[i-1])
+				continue;
+			res.push_back(candidates[i]);
+			dfs(i + 1, candidates, target, sum + candidates[i]);
+			res.pop_back();
+		}
+	}
+	vector<vector<int> >combinationSum2(vector<int>& candidates, int target){
+		ans.clear(); res.clear();
+		sort(candidates.begin(), candidates.end());
+		dfs(0, candidates, target, 0);
+		return ans;
+	}
+};
