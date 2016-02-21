@@ -1,0 +1,22 @@
+class Solution(object):
+    def divide(self, divided, divisor):
+        max_int, min_int = 2147483647, -2147483648
+        if divided == min_int and divisor == -1:
+            return max_int
+        signal = 1
+        if divided < 0:
+            signal *= -1
+        if divisor < 0:
+            signal *= -1
+        divided, divisor = abs(divided), abs(divisor)
+        res = 0
+        while divided >= divisor:
+            d, times = divisor, 1
+            while d <= divided:
+                d <<= 1
+                times <<= 1
+            d >>= 1
+            times >>= 1
+            res += times
+            divided -= d
+        return res * signal
