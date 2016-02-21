@@ -1,0 +1,27 @@
+class Solution{
+public:
+	string multiply(string num1, string num2){
+		int n = num1.length(), m = num2.length();
+		vector<int>v(n + m, 0);
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				v[i + j + 1] += (num1[i] - '0') * (num2[j] - '0');
+			}
+		}
+		string s = "";
+		for(int i = n + m - 1; i >= 0; i--){
+			if(i > 0){
+				v[i-1] += v[i] / 10;
+			}
+			v[i] %= 10;
+			s += (char)(v[i] % 10) + '0';
+		}
+		string ans = "";
+		int len = s.length();
+		int i = len - 1;
+		while(s[i] == '0') i--;
+		for(;i>=0;i--) ans += s[i];
+		if(ans.length() == 0) return "0";
+		return ans;
+	}
+};
