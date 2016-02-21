@@ -1,0 +1,17 @@
+class Solution{
+public:
+	bool isValidSudoku(vector<vector<char> >& board){
+		int valid[3][9] = {0};
+		for(int i=0;i<9;i++){
+			for(int j=0;j<9;j++){
+				if(board[i][j] != '.'){
+					int num = board[i][j] - '0', p = (i / 3) * 3 + j / 3;
+					if((valid[0][i] & (1 << num)) || (valid[1][j] & (1 << num)) || (valid[2][p] & (1 << num)))
+					    return false;
+					valid[0][i] |= (1 << num);valid[1][j] |= (1 << num);valid[2][p] |= (1 << num);
+				}
+			}
+		}
+		return true;
+	}
+};
